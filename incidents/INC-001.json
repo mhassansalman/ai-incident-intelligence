@@ -1,0 +1,113 @@
+{
+  "incident_id": "INC-001",
+  "created_at": "2026-10-07T00:32:29",
+  "trigger": {
+    "service": "catalog",
+    "reason": "health check failed"
+  },
+  "evidence": {
+    "incident_id": "INC-001",
+    "health": {
+      "gateway": {
+        "service": "gateway",
+        "healthy": true,
+        "status_code": 200,
+        "url": "http://127.0.0.1:8080/health"
+      },
+      "orders": {
+        "service": "orders",
+        "healthy": true,
+        "status_code": 200,
+        "url": "http://127.0.0.1:8001/health"
+      },
+      "catalog": {
+        "service": "catalog",
+        "healthy": false,
+        "status_code": null,
+        "url": "http://127.0.0.1:8000/health",
+        "error": "timed out"
+      }
+    },
+    "logs": {
+      "orders_catalog_failures": {
+        "service": "orders",
+        "keyword": "CATALOG_REQUEST_FAILED",
+        "matches": [
+          {
+            "line": 7,
+            "message": "2026-10-06T23:46:29 | ERROR | CATALOG_REQUEST_FAILED | item_id=1 attempt=1 error=ConnectError('All connection attempts failed')"
+          },
+          {
+            "line": 9,
+            "message": "2026-10-06T23:46:31 | ERROR | CATALOG_REQUEST_FAILED | item_id=1 attempt=2 error=ConnectError('All connection attempts failed')"
+          },
+          {
+            "line": 11,
+            "message": "2026-10-06T23:46:34 | ERROR | CATALOG_REQUEST_FAILED | item_id=1 attempt=3 error=ConnectError('All connection attempts failed')"
+          },
+          {
+            "line": 15,
+            "message": "2026-10-07T00:07:35 | ERROR | CATALOG_REQUEST_FAILED | item_id=1 attempt=1 error=ConnectError('All connection attempts failed')"
+          },
+          {
+            "line": 17,
+            "message": "2026-10-07T00:07:37 | ERROR | CATALOG_REQUEST_FAILED | item_id=1 attempt=2 error=ConnectError('All connection attempts failed')"
+          },
+          {
+            "line": 19,
+            "message": "2026-10-07T00:07:40 | ERROR | CATALOG_REQUEST_FAILED | item_id=1 attempt=3 error=ConnectError('All connection attempts failed')"
+          },
+          {
+            "line": 23,
+            "message": "2026-10-07T00:08:30 | ERROR | CATALOG_REQUEST_FAILED | item_id=1 attempt=1 error=ConnectError('All connection attempts failed')"
+          },
+          {
+            "line": 25,
+            "message": "2026-10-07T00:08:33 | ERROR | CATALOG_REQUEST_FAILED | item_id=1 attempt=2 error=ConnectError('All connection attempts failed')"
+          },
+          {
+            "line": 27,
+            "message": "2026-10-07T00:08:35 | ERROR | CATALOG_REQUEST_FAILED | item_id=1 attempt=3 error=ConnectError('All connection attempts failed')"
+          }
+        ],
+        "count": 9
+      }
+    },
+    "metrics": {
+      "orders": {
+        "available": true,
+        "metrics": {
+          "service": "orders",
+          "orders_received": 2,
+          "orders_created": 0,
+          "catalog_requests": 6,
+          "catalog_failures": 6
+        }
+      }
+    },
+    "recent_commits": {
+      "available": true,
+      "count": 3,
+      "commits": [
+        {
+          "hash": "a9df3b8b62b0e9e569963989b8ae3c4e1798b150",
+          "author": "Utkarsh Kaushik",
+          "date": "2025-09-04 03:31:34 +0000",
+          "message": "Merge branch 'master' of github.com:kaush-utkarsh/microservices-python-demo"
+        },
+        {
+          "hash": "83394780abec66da91306f94d94d644db0cb6af4",
+          "author": "Utkarsh Kaushik",
+          "date": "2025-09-04 03:23:30 +0000",
+          "message": "updating the demo"
+        },
+        {
+          "hash": "1c24cb8c1faf139e44484048b3b0f892af50f3ca",
+          "author": "Utkarsh Kaushik",
+          "date": "2025-09-04 08:52:09 +0530",
+          "message": "Initial commit"
+        }
+      ]
+    }
+  }
+}
