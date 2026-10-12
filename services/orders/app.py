@@ -182,7 +182,11 @@ async def get_item_safe(
                 **response.json()
             )
 
-        except Exception as exc:
+        except HTTPException:
+            # Valid 404 response: do not retry or turn it into a 502.
+            raise
+
+        except (httpx.RequestError, httpx.HTTPStatusError, ValueError) as exc:
 
             last_exc = exc
 

@@ -1,30 +1,19 @@
-import httpx
-
 from services.tools.health import get_service_health
 from services.tools.logs import search_logs
 from services.tools.commits import get_recent_commits
+from services.tools.metrices import get_metrics
 
 
 def get_orders_metrics():
-    try:
-        response = httpx.get(
-            "http://127.0.0.1:8001/metrics",
-            timeout=2,
-        )
-
-        response.raise_for_status()
-
-        return {
-            "available": True,
-            "metrics": response.json(),
-        }
-
-    except Exception as error:
-        return {
-            "available": False,
-            "metrics": None,
-            "error": str(error),
-        }
+    """Keep the existing incident-evidence response shape for V0 consumers."""
+    result = get_metrics("orders")
+    evidence = {
+        "available": result["available"],
+        "metrics": result["metrics"],
+    }
+    if "error" in result:
+        evidence["error"] = result["error"]
+    return evidence
 
 
 def collect_incident_evidence(

@@ -1,3 +1,45 @@
+# AI Incident Intelligence — Local Microservices Simulator
+
+This repository contains the **V0 FastAPI simulator** and the **V1 Reactive Incident Commander specification**. V1 is planned, not yet implemented. The simulator runs locally **without Docker**; `docker-compose.yml` is retained for later use.
+
+## Quick start (Windows PowerShell)
+
+From the repository root, activate the existing `.venv` or create one (`py -m venv .venv`, then `.\.venv\Scripts\Activate.ps1`). Install dependencies using:
+
+```powershell
+python -m pip install -r services/catalog/requirements.txt -r services/orders/requirements.txt -r services/gateway/requirements.txt -r tests/requirements-dev.txt
+```
+
+Run the following in **three separate PowerShell terminals**, with the virtual environment active and the current directory set to this repository root:
+
+```powershell
+# Terminal 1 — Catalog
+python -m uvicorn services.catalog.app:app --port 8000
+```
+
+```powershell
+# Terminal 2 — Orders
+$env:CATALOG_URL="http://127.0.0.1:8000"
+python -m uvicorn services.orders.app:app --port 8001
+```
+
+```powershell
+# Terminal 3 — Gateway
+$env:CATALOG_URL="http://127.0.0.1:8000"
+$env:ORDERS_URL="http://127.0.0.1:8001"
+python -m uvicorn services.gateway.app:app --port 8080
+```
+
+In a fourth terminal, run `python -m pytest -q` after the three services are ready. The integration test expects a running gateway on port 8080 (override with `TEST_GATEWAY_URL` if necessary).
+
+For Git Bash, use `export CATALOG_URL=http://127.0.0.1:8000` / `export ORDERS_URL=http://127.0.0.1:8001` instead of `$env:`.
+
+Documentation entry point: [`docs/00_DOCS_INDEX.md`](docs/00_DOCS_INDEX.md). Keep V0 behavior working while implementing V1 incrementally. No automatic remediation in V1.
+
+---
+
+## Original microservices demo reference
+
 # Python Microservices Demo (FastAPI + Docker Compose)
 
 A tiny, production-flavored but classroom-simple microservices example using **FastAPI**, **httpx**, and **Docker Compose**.  
@@ -173,7 +215,7 @@ uvicorn services.gateway.app:app --reload --port 8080
 ## Testing (Optional)
 
 ```bash
-pip install -r requirements-dev.txt
+pip install -r tests/requirements-dev.txt
 pytest -q
 ```
 

@@ -1,7 +1,8 @@
-import asyncio
+import os
 import httpx
+import pytest
 
-BASE = "http://localhost:8080"
+BASE = os.getenv("TEST_GATEWAY_URL", "http://127.0.0.1:8080")
 
 async def _get(client, path):
     r = await client.get(f"{BASE}{path}")
@@ -19,4 +20,4 @@ async def test_order_flow():
         items = await _get(client, "/api/items")
         assert items, "catalog should have seed items"
         order = await _post(client, "/api/orders", {"item_id": items[0]["id"], "qty": 2})
-        assert order["total"]   
+        assert order["total"]
