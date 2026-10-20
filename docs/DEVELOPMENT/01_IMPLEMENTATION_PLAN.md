@@ -51,60 +51,29 @@ No agents yet.
 
 No MCP yet.
 
-## Stage 3 — Evidence models
+## Stage 3 — Live Evidence Collection
 
-Create:
+Collect structured evidence from the existing incident fixture and, when
+requested, from live local services and repository history. Preserve fixture
+mode as the deterministic default and keep live collection read-only.
 
-```text
-Evidence
-Hypothesis
-RootCause
-Remediation
-```
+The evidence model and shared incident state support this collection. Where a
+live source is unavailable, record that limitation rather than inventing
+evidence.
 
-## Stage 4 — IncidentState
+## Stage 4 — AI investigation, hypothesis verification, and RootCause
 
-Create the shared graph state.
+Build the investigation loop on the shared incident state and collected
+evidence:
 
-## Stage 5 — Basic LangGraph
-
-Initial graph:
-
-```text
-START
- ↓
-Intake
- ↓
-Planner
- ↓
-Investigate
- ↓
-Evidence
- ↓
-END
-```
-
-## Stage 6 — Investigator nodes
-
-Add:
-
-- Log Investigator
-- Metrics Investigator
-- Health Investigator
-- Git Investigator
-
-## Stage 7 — Hypothesis + verification
-
-Add:
-
-```text
-Hypothesis Generator
-Verifier
-Gap Analyzer
-Root Cause
-```
-
-Include a hard iteration cap.
+- Compile the LangGraph flow for intake, planning, investigation, and evidence
+  aggregation.
+- Add log, metrics, health, and Git investigator nodes.
+- Generate competing hypotheses and verify them against evidence; analyze
+  evidence gaps and contradictions.
+- Bound verification to at most three cycles and allow an inconclusive result.
+- Add the `RootCause` model when needed by the evidence-to-RCA implementation.
+  Conclusions must cite genuine evidence IDs and account for contradictions.
 
 ## Stage 8 — RAG
 
@@ -121,6 +90,12 @@ Measure whether RAG helps.
 Wrap stable tools through MCP.
 
 Do not change the agent contract.
+
+## Later V1 — Remediation model
+
+Add the `Remediation` model after the investigation and RCA baseline. It
+supports recommendations only; execution and automatic remediation remain out
+of scope.
 
 ## Future versions only (not V1)
 

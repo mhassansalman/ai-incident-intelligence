@@ -219,7 +219,7 @@ def test_cli_e2e_inc001(capsys):
     captured = capsys.readouterr()
     output = captured.out
     assert "INVESTIGATION EXECUTION RESULTS" in output
-    assert "RCA not implemented in Stage 2" in output
+    assert "RCA not implemented in Stage 3" in output
     assert "incident_id: INC-001" in output
     assert "root_cause: None" in output
 

@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from typing import Optional, List, Dict, Any, Union
 from pydantic import BaseModel, Field, ValidationError
-from typing_extensions import TypedDict
+from typing_extensions import Literal, TypedDict
 
 
 class HealthError(BaseModel):
@@ -118,7 +118,7 @@ class Evidence(BaseModel):
         None, description="Set to null in V1; computed after RAG baseline"
     )
     collected_by: str = Field(
-        ..., description="Who collected: 'monitor' | 'manual'"
+        ..., description="Who collected: 'fixture' | 'live' | 'monitor' | 'manual'"
     )
 
 
@@ -153,6 +153,7 @@ class IncidentState(TypedDict):
     for graph edge serialization.
     """
 
+    evidence_mode: Literal["fixture", "live"]
     incident_id: str
     """Unique incident identifier (e.g., 'INC-001')."""
 
@@ -413,4 +414,5 @@ def map_v0_json_to_incident_state(v0_json: dict) -> IncidentState:
         iteration=0,
         max_iterations=3,
         selected_hypothesis=None,
+        evidence_mode="fixture",
     )
