@@ -5,7 +5,7 @@
 
 ## Principle
 
-Use one main **IncidentGraph** per incident.
+For the **V1/V2 evolution**, use one main **IncidentGraph** per incident. In **V3**, split the lifecycle into **two independent but coordinated LangGraph workflows** (Investigation Orchestration and Resolution Orchestration), sharing a versioned incident handoff. See `ARCHITECTURE/08_V3_DUAL_ORCHESTRATION_MULTI_AGENT.md`.
 
 Do not use LangGraph as the infinite monitoring loop.
 
@@ -19,7 +19,10 @@ Incident created
 IncidentGraph invoked
 ```
 
-## Main graph
+## Main graph (combined conceptual flow; not the currently implemented V1 graph)
+
+The following is the **earlier single-graph design sketch**. V3 replaces its combined investigation/remediation path with two orchestrations and a shared-state handoff; its specialist nodes may be true agents only where independent reasoning is justified.
+
 
 ```mermaid
 flowchart TD

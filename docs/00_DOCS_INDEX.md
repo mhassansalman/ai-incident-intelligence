@@ -18,3 +18,7 @@ Read in order:
 **Precedence:** V1 scope > current-stage implementation plan > V1 graph/evidence contracts > relevant flow > future-looking architecture. Real repository code must be inspected before claiming providers/routes already exist.
 
 **V1 safety:** manual trigger, read-only tools, evidence-cited RCA or explicit inconclusive conclusion, maximum three verification cycles, no automatic remediation. Never let evaluation ground-truth documents reach tools, prompts, or RAG. Make changes in small testable slices.
+
+## Future V3 multi-agent architecture (reference only)
+
+`ARCHITECTURE/08_V3_DUAL_ORCHESTRATION_MULTI_AGENT.md` specifies two LangGraph orchestrations, specialist agents/subgraphs, deterministic aggregators, shared incident handoff, MCP/RAG/Jev boundaries, human-approved writes and the V3 delivery plan. **Not part of the active V1 implementation.**

@@ -156,3 +156,16 @@ At each stage ask:
 > What capability did this layer add, and can I measure the improvement?
 
 Do not add LangGraph, RAG, MCP, Jev, or multi-agent complexity only because they are fashionable.
+
+## Forward plan — V3 dual-workflow multi-agent upgrade (no current implementation changes)
+
+This section is **future-only** and does not alter the V1 stages above. V1 remains manually triggered with advisory recommendations and at most three verification cycles. V2 introduces alert-triggered invocation of the existing investigator. **V3** adds:
+
+1. **V3-A:** cheap monitoring ON/OFF, anomaly rules, deduplication and checkpoints outside the LLM graphs.
+2. **V3-B:** Investigation LangGraph Coordinator with specialized Observability/Engineering agents, optional Infrastructure agent, deterministic Evidence Aggregator, RAG context, Hypothesis Agent and independent Verification Agent.
+3. **V3-C:** at least two tested **read-only MCP servers** (Observability + Engineering); conditional Infrastructure/Knowledge integrations; optional Jev for bounded advisory routing.
+4. **V3-D:** independently invokable **Resolution LangGraph** with Resolution Coordinator, RCA Validation and Remediation Planning agents consuming versioned IncidentState/RCA handoff.
+5. **V3-E:** hard risk and **human approval gate**, optional guarded sandbox Remediation MCP, Execution Agent, independent Recovery Verification Agent and bounded escalation/rollback decisions.
+6. **V3-F:** incident history/UI/audit and end-to-end tests for delegations, evidence provenance, inconclusive results, approval denials, MCP failures and recovery.
+
+**Exit condition:** demonstrably two coordinated agent workflows, with actual agent reasoning/tool boundaries, persisted shared state and scoped MCP. The original V0–V1 code and tests must continue to pass. Full target architecture: `ARCHITECTURE/08_V3_DUAL_ORCHESTRATION_MULTI_AGENT.md`.

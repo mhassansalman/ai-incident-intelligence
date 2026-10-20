@@ -107,6 +107,19 @@ scale_service
 
 Write-capable tools require approval controls.
 
+## V3 MCP ownership across two agent workflows (future)
+
+| V3 workflow | MCP service | Access policy | Typical consumers |
+|---|---|---|---|
+| Investigation | Observability MCP | **Read-only** logs, health, metrics, traces | Observability / Verification agents |
+| Investigation | Engineering MCP | **Read-only** commits, diff, deployments | Engineering / Verification agents |
+| Investigation | Infrastructure MCP (conditional) | **Read-only** DB, container and cloud telemetry | Infrastructure specialist |
+| Either | RAG retriever / optional Knowledge MCP | **Read-only** runbooks/history, not factual telemetry | Hypothesis / RCA Validation / Planning |
+| Resolution | Observability MCP | **Read-only** fresh post-action metrics | Recovery Verification Agent |
+| Resolution | Remediation MCP (later V3) | **Write**, only when an independent server validates a scoped human approval and allowlisted sandbox action | Execution Agent only |
+
+An MCP server **is not an agent** and provides no independent reasoning. Agent identities have least-privilege tool grants; neither the LLM nor optional Jev is an authorization gate. Preserve stable Python provider interfaces and keep V1 MCP optional. See `ARCHITECTURE/08_V3_DUAL_ORCHESTRATION_MULTI_AGENT.md`.
+
 ## Local now vs MCP later
 
 ### Now

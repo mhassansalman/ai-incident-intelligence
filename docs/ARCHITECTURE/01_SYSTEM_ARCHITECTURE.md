@@ -45,6 +45,10 @@ flowchart TD
     LG --> REPORT
 ```
 
+## Future V3 multi-agent split (architecture decision)
+
+The **single `Incident LangGraph` shown above is an earlier combined lifecycle sketch**, not a statement that current V1 code implements all those steps. The future V3 system instead uses **InvestigationGraph → versioned shared IncidentState → ResolutionGraph**, each with its own coordinator and scoped specialist agents. A monitoring worker stays outside both graphs; **MCP connects agents to operational tools**, while RAG supports knowledge retrieval and Jev may provide optional bounded decision advice. The deterministic Evidence Aggregator and approval/policy gates remain ordinary nodes. Read `ARCHITECTURE/08_V3_DUAL_ORCHESTRATION_MULTI_AGENT.md` for the authoritative target V3 graph, agent inventory and safeguards.
+
 ## Core layers
 
 ### 1. Production / test environment
